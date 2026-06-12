@@ -2,7 +2,7 @@
 
 A small macOS menu bar utility that keeps your mouse cursor on one display. Useful when presenting with ProPresenter (or similar) on an extended desktop setup.
 
-**Website:** [republique.github.io/MouseLock](https://republique.github.io/MouseLock)  
+**Website:** [repubiique.github.io/MouseLock](https://repubiique.github.io/MouseLock)  
 **Download:** [Latest release](https://github.com/RepubIique/MouseLock/releases/latest)  
 **Support:** [Buy me a coffee ☕](https://buymeacoffee.com/kendrickbong)
 
