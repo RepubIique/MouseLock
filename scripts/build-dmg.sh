@@ -39,7 +39,7 @@ else
   echo ""
   echo "⚠  No Developer ID certificate — DMG will be unsigned."
   echo "   Users will see “Apple could not verify…” until you sign & notarize."
-  echo "   See README → First launch blocked by macOS."
+  echo "   See maintainer/RELEASING.md to sign & notarize."
   echo ""
 fi
 

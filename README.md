@@ -60,10 +60,6 @@ xattr -cr /Applications/MouseLock.app
 
 Then open Mouse Lock from Applications normally.
 
-**Option C — Run from Xcode (developers)**
-
-Clone the repo, open in Xcode, press **⌘R** — no Gatekeeper block when you build it yourself.
-
 > Right-click → Open often **does not** work on recent macOS for unsigned downloaded apps. Use Option A or B instead.
 
 ## Usage
@@ -77,78 +73,14 @@ Clone the repo, open in Xcode, press **⌘R** — no Gatekeeper block when you b
 ## Requirements
 
 - **macOS 13** (Ventura) or later
-- **Xcode 15+** — only if building from source
 
 Accessibility is optional. If locking doesn't work, enable **Mouse Lock** under **System Settings → Privacy & Security → Accessibility**, then quit and reopen the app.
-
-## Build from source
-
-```bash
-git clone https://github.com/RepubIique/MouseLock.git
-cd MouseLock
-open MouseLock.xcodeproj
-```
-
-In Xcode, select the **MouseLock** scheme and press **⌘R**.
-
-## Create a release DMG
-
-Ship the classic macOS install experience (drag app → Applications):
-
-```bash
-brew install create-dmg
-./scripts/build-dmg.sh 1.0.0
-open dist/MouseLock-1.0.0.dmg   # preview before uploading
-```
-
-Upload `dist/MouseLock-*.dmg` to [GitHub Releases](https://github.com/RepubIique/MouseLock/releases/new).
-
-### Remove the malware warning for everyone (sign + notarize)
-
-Requires [Apple Developer Program](https://developer.apple.com/programs/) ($99/year).
-
-1. In Xcode: **Settings → Accounts → Manage Certificates → + → Developer ID Application**
-2. Build and sign:
-
-```bash
-./scripts/build-dmg.sh 1.0.0          # auto-signs if cert is present
-# or manually:
-./scripts/sign-app.sh build/DerivedData/Build/Products/Release/MouseLock.app
-```
-
-3. Notarize the DMG:
-
-```bash
-APPLE_ID=you@email.com \
-TEAM_ID=YOUR_TEAM_ID \
-APP_PASSWORD=your-app-specific-password \
-  ./scripts/notarize-dmg.sh dist/MouseLock-1.0.0.dmg
-```
-
-4. Upload the **notarized** DMG to Releases — users can open it without bypass steps.
 
 ## How it works
 
 Mouse Lock polls the cursor ~60 times per second. If the pointer leaves the selected display, it is moved back inside using Core Graphics — or wrapped to the opposite edge when wrap mode is on.
 
 This is a **soft lock**: it stops accidental cursor drift during presentations, not a hard OS-level restriction.
-
-## Project structure
-
-```
-MouseLock/
-├── docs/                  # GitHub Pages site + icons
-├── scripts/               # DMG build script
-├── MouseLock.xcodeproj
-└── MouseLock/
-    ├── MouseLockApp.swift
-    ├── MenuBarView.swift
-    ├── MouseLockController.swift
-    ├── CursorLockService.swift
-    ├── DisplayInfo.swift
-    ├── HotKeyManager.swift
-    └── Assets.xcassets/   # App icon
-```
 
 ---
 
