@@ -2,35 +2,47 @@
 
 A small macOS menu bar utility that keeps your mouse cursor on one display. Useful when presenting with ProPresenter (or similar) on an extended desktop setup.
 
+**Website:** [republique.github.io/MouseLock](https://republique.github.io/MouseLock)  
+**Download:** [Latest release](https://github.com/RepubIique/MouseLock/releases/latest)  
+**Support:** [Buy me a coffee ☕](https://buymeacoffee.com/kendrickbong)
+
 ## Features
 
 - Menu bar app (no Dock icon)
 - Pick which display to lock the cursor to
 - Toggle lock from the menu or with **⌃⌥L** (Control + Option + L)
+- Optional **wrap at screen edges** (cursor reappears on the opposite side)
 - Automatically refreshes when displays are connected or disconnected
 
 ## Requirements
 
 - macOS 13 (Ventura) or later
-- Xcode 15+ to build
+- Xcode 15+ to build from source
+
+## Install (pre-built)
+
+1. Download the latest **MouseLock.zip** from [Releases](https://github.com/RepubIique/MouseLock/releases/latest).
+2. Unzip and move **MouseLock.app** to Applications.
+3. On first open, if macOS blocks the app: right-click → **Open** → **Open** again.
 
 ## Build & Run
 
 1. Open `MouseLock.xcodeproj` in Xcode.
 2. Select the **MouseLock** scheme and click **Run** (⌘R).
-3. On first launch, grant **Accessibility** access when prompted:
-   - System Settings → Privacy & Security → Accessibility → enable **Mouse Lock**
+
+Accessibility is optional. If locking does not work, enable **Mouse Lock** under System Settings → Privacy & Security → Accessibility, then quit and reopen the app.
 
 ## Usage
 
 1. Click the display icon in the menu bar.
 2. Choose the display you want to stay on (usually your MacBook / control screen).
-3. Click **Lock Mouse** (or press **⌃⌥L**).
-4. Click **Unlock Mouse** (or **⌃⌥L** again) when you're done.
+3. Optionally enable **Wrap at screen edges**.
+4. Click **Lock Mouse** (or press **⌃⌥L**).
+5. Click **Unlock Mouse** (or **⌃⌥L** again) when you're done.
 
 ## How it works
 
-The app polls the cursor position ~60 times per second. If the cursor leaves the selected display's bounds, it is moved back to the nearest point inside that display using Core Graphics.
+The app polls the cursor position ~60 times per second. If the cursor leaves the selected display's bounds, it is moved back inside that display using Core Graphics—or wrapped to the opposite edge when wrap mode is on.
 
 This is a soft lock — it prevents accidental cursor drift during presentations, not a hard OS-level restriction.
 
@@ -38,6 +50,7 @@ This is a soft lock — it prevents accidental cursor drift during presentations
 
 ```
 MouseLock/
+├── docs/                        # GitHub Pages site
 ├── MouseLock.xcodeproj
 └── MouseLock/
     ├── MouseLockApp.swift       # App entry + menu bar

@@ -5,6 +5,7 @@ final class CursorLockService {
     private var timer: Timer?
     private var targetDisplayID: CGDirectDisplayID?
     private(set) var isLocked = false
+    var edgeWrapEnabled = false
 
     /// Inset from display edges. Also keeps the cursor off the exclusive maxX/maxY
     /// boundary that CGRect.contains treats as outside.
@@ -45,7 +46,8 @@ final class CursorLockService {
         guard let location = currentMouseLocation() else { return }
 
         guard isInside(location, bounds: bounds) else {
-            CGWarpMouseCursorPosition(clamp(location, to: bounds))
+            let corrected = edgeWrapEnabled ? wrap(location, to: bounds) : clamp(location, to: bounds)
+            CGWarpMouseCursorPosition(corrected)
             return
         }
     }
@@ -79,5 +81,30 @@ final class CursorLockService {
             x: min(max(point.x, bounds.minX), maxX),
             y: min(max(point.y, bounds.minY), maxY)
         )
+    }
+
+    private func wrap(_ point: CGPoint, to bounds: CGRect) -> CGPoint {
+        let minX = bounds.minX
+        let minY = bounds.minY
+        let maxX = bounds.maxX - edgeMargin
+        let maxY = bounds.maxY - edgeMargin
+        let width = maxX - minX
+        let height = maxY - minY
+
+        guard width > 0, height > 0 else {
+            return clamp(point, to: bounds)
+        }
+
+        return CGPoint(
+            x: wrappedCoordinate(point.x, min: minX, span: width),
+            y: wrappedCoordinate(point.y, min: minY, span: height)
+        )
+    }
+
+    private func wrappedCoordinate(_ value: CGFloat, min: CGFloat, span: CGFloat) -> CGFloat {
+        var offset = value - min
+        offset = offset.truncatingRemainder(dividingBy: span)
+        if offset < 0 { offset += span }
+        return min + offset
     }
 }

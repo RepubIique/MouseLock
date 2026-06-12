@@ -20,6 +20,8 @@ struct MenuBarView: View {
         }
         .disabled(controller.isLocked)
 
+        Toggle("Wrap at screen edges", isOn: $controller.edgeWrapEnabled)
+
         Button(controller.isLocked ? "Unlock Mouse" : "Lock Mouse") {
             controller.toggleLock()
         }

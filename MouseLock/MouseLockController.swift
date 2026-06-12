@@ -6,10 +6,20 @@ import Foundation
 
 @MainActor
 final class MouseLockController: ObservableObject {
+    private enum Keys {
+        static let edgeWrapEnabled = "edgeWrapEnabled"
+    }
+
     @Published private(set) var displays: [DisplayInfo] = []
     @Published var selectedDisplayID: CGDirectDisplayID?
     @Published private(set) var isLocked = false
     @Published private(set) var accessibilityGranted = false
+    @Published var edgeWrapEnabled = UserDefaults.standard.bool(forKey: Keys.edgeWrapEnabled) {
+        didSet {
+            UserDefaults.standard.set(edgeWrapEnabled, forKey: Keys.edgeWrapEnabled)
+            lockService.edgeWrapEnabled = edgeWrapEnabled
+        }
+    }
 
     private let lockService = CursorLockService()
     private let hotKeyManager = HotKeyManager()
@@ -17,6 +27,7 @@ final class MouseLockController: ObservableObject {
     private var appActiveObserver: NSObjectProtocol?
 
     init() {
+        lockService.edgeWrapEnabled = edgeWrapEnabled
         refreshDisplays()
         refreshAccessibilityStatus()
         registerHotKey()
