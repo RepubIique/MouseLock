@@ -5,6 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Mouse Lock — Keep your cursor on one display</title>
   <meta name="description" content="Free macOS menu bar app that locks your mouse to one screen. Perfect for ProPresenter and extended displays.">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <meta property="og:image" content="https://repubiique.github.io/MouseLock/icon-512.png">
+  <meta property="og:title" content="Mouse Lock">
+  <meta property="og:description" content="Free macOS menu bar app that locks your cursor to one display.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -49,6 +55,14 @@
       max-width: var(--max);
       margin: 0 auto;
       padding: 3.5rem 1.5rem 4rem;
+    }
+
+    .hero-icon {
+      width: 88px;
+      height: 88px;
+      border-radius: 20px;
+      margin-bottom: 1.25rem;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
     }
 
     .badge {
@@ -189,7 +203,8 @@
 <body>
   <div class="glow" aria-hidden="true"></div>
   <main>
-    <div class="badge">🖥 Free for macOS</div>
+    <img class="hero-icon" src="icon-192.png" width="88" height="88" alt="Mouse Lock app icon">
+    <div class="badge">Free for macOS</div>
     <h1>Mouse Lock</h1>
     <p class="lead">
       A tiny menu bar app that keeps your cursor on one display.
@@ -222,8 +237,8 @@
     <section>
       <h2>Install</h2>
       <ol>
-        <li>Download <strong>MouseLock.zip</strong> from the latest GitHub release.</li>
-        <li>Unzip and drag <strong>MouseLock.app</strong> into Applications.</li>
+        <li>Download <strong>MouseLock.dmg</strong> from the latest GitHub release.</li>
+        <li>Open the DMG and drag <strong>MouseLock</strong> into <strong>Applications</strong>.</li>
         <li>Open it — if macOS blocks it, right-click → <strong>Open</strong> → <strong>Open</strong> again.</li>
         <li>Click the display icon in the menu bar, pick your screen, and lock.</li>
       </ol>

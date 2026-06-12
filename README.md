@@ -21,9 +21,24 @@ A small macOS menu bar utility that keeps your mouse cursor on one display. Usef
 
 ## Install (pre-built)
 
-1. Download the latest **MouseLock.zip** from [Releases](https://github.com/RepubIique/MouseLock/releases/latest).
-2. Unzip and move **MouseLock.app** to Applications.
+1. Download the latest **MouseLock-*.dmg** from [Releases](https://github.com/RepubIique/MouseLock/releases/latest).
+2. Open the DMG and drag **MouseLock** to **Applications**.
 3. On first open, if macOS blocks the app: right-click → **Open** → **Open** again.
+
+## Create a release DMG (drag to Applications)
+
+This builds a `.dmg` with the classic “drag app to Applications folder” window.
+
+1. Install [create-dmg](https://github.com/create-dmg/create-dmg): `brew install create-dmg`
+2. From the project folder, run:
+
+```bash
+./scripts/build-dmg.sh 1.0.0
+```
+
+3. Find the DMG at `dist/MouseLock-1.0.0.dmg`
+4. Double-click it to preview the install window
+5. Upload the DMG to [GitHub Releases](https://github.com/RepubIique/MouseLock/releases/new)
 
 ## Build & Run
 
