@@ -32,6 +32,17 @@ if [[ ! -d "$APP" ]]; then
   exit 1
 fi
 
+# Sign before packaging if a Developer ID cert is available.
+if [[ -n "${SIGN_IDENTITY:-}" ]] || security find-identity -v -p codesigning 2>/dev/null | grep -q "Developer ID Application"; then
+  "$ROOT/scripts/sign-app.sh" "$APP"
+else
+  echo ""
+  echo "⚠  No Developer ID certificate — DMG will be unsigned."
+  echo "   Users will see “Apple could not verify…” until you sign & notarize."
+  echo "   See README → First launch blocked by macOS."
+  echo ""
+fi
+
 mkdir -p "$DIST"
 rm -f "$DMG_PATH"
 

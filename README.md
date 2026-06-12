@@ -37,9 +37,34 @@
 
 1. Grab the latest **`MouseLock-*.dmg`** from [**Releases**](https://github.com/RepubIique/MouseLock/releases/latest).
 2. Open the DMG and drag **Mouse Lock** into **Applications**.
-3. If macOS blocks the app on first launch: **right-click → Open → Open**.
+3. Open **Mouse Lock** (see below if macOS blocks it).
 
-> **Tip:** The DMG includes a drag-to-Applications window. No installer wizard needed.
+> **Tip:** This is a menu bar app — there is **no Dock icon**. After launching, look for the display icon in the **top menu bar**.
+
+### First launch blocked by macOS?
+
+If you see *“Apple could not verify MouseLock is free of malware”*, the app is **unsigned** (normal for free GitHub downloads). It is safe if you downloaded it from this repo. macOS is cautious, not accusing you of malware.
+
+**Option A — Open Anyway (easiest)**
+
+1. Try to open Mouse Lock once (it will be blocked).
+2. Open **System Settings → Privacy & Security**.
+3. Scroll down — click **Open Anyway** next to Mouse Lock.
+4. Confirm **Open**.
+
+**Option B — Remove download quarantine (Terminal)**
+
+```bash
+xattr -cr /Applications/MouseLock.app
+```
+
+Then open Mouse Lock from Applications normally.
+
+**Option C — Run from Xcode (developers)**
+
+Clone the repo, open in Xcode, press **⌘R** — no Gatekeeper block when you build it yourself.
+
+> Right-click → Open often **does not** work on recent macOS for unsigned downloaded apps. Use Option A or B instead.
 
 ## Usage
 
@@ -77,6 +102,30 @@ open dist/MouseLock-1.0.0.dmg   # preview before uploading
 ```
 
 Upload `dist/MouseLock-*.dmg` to [GitHub Releases](https://github.com/RepubIique/MouseLock/releases/new).
+
+### Remove the malware warning for everyone (sign + notarize)
+
+Requires [Apple Developer Program](https://developer.apple.com/programs/) ($99/year).
+
+1. In Xcode: **Settings → Accounts → Manage Certificates → + → Developer ID Application**
+2. Build and sign:
+
+```bash
+./scripts/build-dmg.sh 1.0.0          # auto-signs if cert is present
+# or manually:
+./scripts/sign-app.sh build/DerivedData/Build/Products/Release/MouseLock.app
+```
+
+3. Notarize the DMG:
+
+```bash
+APPLE_ID=you@email.com \
+TEAM_ID=YOUR_TEAM_ID \
+APP_PASSWORD=your-app-specific-password \
+  ./scripts/notarize-dmg.sh dist/MouseLock-1.0.0.dmg
+```
+
+4. Upload the **notarized** DMG to Releases — users can open it without bypass steps.
 
 ## How it works
 
