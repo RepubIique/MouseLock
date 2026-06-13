@@ -43,7 +43,7 @@
 
 ### First launch blocked by macOS?
 
-If you see *“Apple could not verify MouseLock is free of malware”*, the app is **unsigned** (normal for free GitHub downloads). It is safe if you downloaded it from this repo. macOS is cautious, not accusing you of malware.
+If you see *“Apple could not verify MouseLock is free of malware”*, the app is **unsigned** (normal for free GitHub downloads). It is safe if you downloaded it from this repo. macOS is cautious, which is honestly fair enough, I would be cautious too.
 
 **Option A — Open Anyway (easiest)**
 
