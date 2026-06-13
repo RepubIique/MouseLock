@@ -15,6 +15,9 @@
 </p>
 
 <p align="center">
+  <a href="https://github.com/RepubIique/MouseLock/releases">
+    <img src="https://img.shields.io/github/downloads/RepubIique/MouseLock/total?label=downloads&logo=github" alt="Total downloads">
+  </a>
   <img src="https://img.shields.io/badge/macOS-13%2B-blue?logo=apple&logoColor=white" alt="macOS 13+">
   <img src="https://img.shields.io/badge/Swift-5-orange?logo=swift&logoColor=white" alt="Swift 5">
   <img src="https://img.shields.io/badge/menu%20bar-utility-5b9cff" alt="Menu bar utility">
